@@ -1,4 +1,4 @@
-//
+// NOTE:
 // Zig has an "unreachable" statement. Use it when you want to tell the
 // compiler that a branch of code should never be executed and that the
 // mere act of reaching it is an error.
@@ -32,9 +32,8 @@ pub fn main() void {
             2 => {
                 current_value -= 1;
             },
-            3 => {
-                current_value *= current_value;
-            },
+            3 => current_value *= current_value,
+            else => unreachable,
         }
 
         std.debug.print("{} ", .{current_value});

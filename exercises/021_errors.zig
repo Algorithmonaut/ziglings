@@ -7,9 +7,14 @@
 //
 // We have the start of an error set, but we're missing the condition
 // "TooSmall". Please add it where needed!
+//
+// NOTE:
+// Error set elements (error names) are capitalized by convention. This follows
+// Zig's naming style, where error names use PascalCase.
+
 const MyNumberError = error{
     TooBig,
-    ???,
+    TooSmall,
     TooFour,
 };
 
@@ -26,7 +31,7 @@ pub fn main() void {
         if (number_error == MyNumberError.TooBig) {
             std.debug.print(">4. ", .{});
         }
-        if (???) {
+        if (number_error == MyNumberError.TooSmall) {
             std.debug.print("<4. ", .{});
         }
         if (number_error == MyNumberError.TooFour) {
