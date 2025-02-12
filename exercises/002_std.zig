@@ -3,7 +3,9 @@
 // example. But we forgot how to import the Zig Standard Library.
 //
 // The @import() function is built into Zig. It returns a value which
-// represents the imported code. It's a good idea to store the import as
+// represents the imported code.
+// NOTE:
+// It's a good idea to store the import as
 // a constant value with the same name as the import:
 //
 //     const foo = @import("foo");
@@ -11,7 +13,7 @@
 // Please complete the import below:
 //
 
-??? = @import("std");
+const std = @import("std");
 
 pub fn main() void {
     std.debug.print("Standard Library.\n", .{});
