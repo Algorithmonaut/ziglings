@@ -29,6 +29,8 @@
 //    var five: u8 = 5;
 //    var a_five: *[1]u8 = &five;
 //
+// NOTE: "Payload types"
+//
 // 5. Payload types and null coerce to optionals.
 //
 //    var num: u8 = 5;
@@ -67,7 +69,7 @@ const print = @import("std").debug.print;
 pub fn main() void {
     var letter: u8 = 'A';
 
-    const my_letter:   ???   = &letter;
+    const my_letter: ?*[1]u8 = &letter;
     //               ^^^^^^^
     //           Your type here.
     // Must coerce from &letter (which is a *u8).

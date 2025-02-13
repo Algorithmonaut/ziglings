@@ -2,23 +2,24 @@
 // It is really quite inconvenient having to manually keep track
 // of the active field in our union, isn't it?
 //
+// NOTE:
 // Thankfully, Zig also has "tagged unions", which allow us to
 // store an enum value within our union representing which field
 // is active.
-//
+// /
 //     const FooTag = enum{ small, medium, large };
-//
+// /
 //     const Foo = union(FooTag) {
 //         small: u8,
 //         medium: u32,
 //         large: u64,
 //     };
-//
+// /
 // Now we can use a switch directly on the union to act on the
 // active field:
-//
+// /
 //     var f = Foo{ .small = 10 };
-//
+// /
 //     switch (f) {
 //         .small => |my_small| do_something(my_small),
 //         .medium => |my_medium| do_something(my_medium),
@@ -44,14 +45,14 @@ pub fn main() void {
     std.debug.print("Insect report! ", .{});
 
     // Could it really be as simple as just passing the union?
-    printInsect(???);
-    printInsect(???);
+    printInsect(ant);
+    printInsect(bee);
 
     std.debug.print("\n", .{});
 }
 
 fn printInsect(insect: Insect) void {
-    switch (???) {
+    switch (insect) {
         .still_alive => |a| std.debug.print("Ant alive is: {}. ", .{a}),
         .flowers_visited => |f| std.debug.print("Bee visited {} flowers. ", .{f}),
     }

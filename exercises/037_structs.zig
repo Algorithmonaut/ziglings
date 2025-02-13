@@ -1,3 +1,7 @@
+// NOTE:
+// Last element of struct followed by comma -> format into multi lines struct
+// Else -> format into single line struct
+
 //
 // Being able to group values together lets us turn this:
 //
@@ -36,6 +40,7 @@ const Character = struct {
     role: Role,
     gold: u32,
     experience: u32,
+    health: u8,
 };
 
 pub fn main() void {
@@ -44,6 +49,7 @@ pub fn main() void {
         .role = Role.wizard,
         .gold = 20,
         .experience = 10,
+        .health = 100,
     };
 
     // Glorp gains some gold.

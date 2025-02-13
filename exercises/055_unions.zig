@@ -13,23 +13,20 @@
 //         large: u64,
 //     };
 //
+// NOTE:
 // The syntax looks just like a struct, but a Foo can only hold a
 // small OR a medium OR a large value. Once a field becomes
 // active, the other inactive fields cannot be accessed. To
 // change active fields, assign a whole new instance:
-//
 //     var f = Foo{ .small = 5 };
 //     f.small += 5;                  // OKAY
 //     f.medium = 5432;               // ERROR!
 //     f = Foo{ .medium = 5432 };     // OKAY
-//
 // Unions can save space in memory because they let you "re-use"
 // a space in memory. They also provide a sort of primitive
 // polymorphism. Here fooBar() can take a Foo no matter what size
 // of unsigned integer it holds:
-//
 //     fn fooBar(f: Foo) void { ... }
-//
 // Oh, but how does fooBar() know which field is active? Zig has
 // a neat way of keeping track, but for now, we'll just have to
 // do it manually.
@@ -59,8 +56,8 @@ pub fn main() void {
     std.debug.print("Insect report! ", .{});
 
     // Oops! We've made a mistake here.
-    printInsect(ant, AntOrBee.c);
-    printInsect(bee, AntOrBee.c);
+    printInsect(ant, AntOrBee.a);
+    printInsect(bee, AntOrBee.b);
 
     std.debug.print("\n", .{});
 }

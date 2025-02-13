@@ -12,9 +12,11 @@
 //
 // @import() adds the imported code to your own. In this case, code
 // from the standard library is added to your program and compiled
-// with it. All of this will be loaded into RAM when it runs. Oh, and
-// that thing we name "const std"? That's a struct!
+// with it. All of this will be loaded into RAM when it runs.
 //
+// NOTE:
+// Oh, and that thing we name "const std"? That's a struct!
+
 const std = @import("std");
 
 // Remember our old RPG Character struct? A struct is really just a
@@ -33,6 +35,9 @@ const Character = struct {
 // program as data, and like the instruction code, it is loaded into
 // RAM when your program runs. The relative location of this data in
 // memory is hard-coded and neither the address nor the value changes.
+
+// NOTE: The relative location of stack data is hardcoded.
+// Stack entries are called frames.
 
 const the_narrator = Character{
     .gold = 12,
@@ -69,6 +74,7 @@ pub fn main() void {
         .gold = 30,
     };
 
+    // NOTE:
     // The "reward_xp" value is interesting. It's an immutable
     // value, so even though it is local, it can be put in global
     // data and shared between all invocations. But being such a
@@ -78,16 +84,18 @@ pub fn main() void {
 
     const reward_xp: u32 = 200;
 
+    // NOTE:
     // Now let's circle back around to that "std" struct we imported
     // at the top. Since it's just a regular Zig value once it's
     // imported, we can also assign new names for its fields and
     // declarations. "debug" refers to another struct and "print" is a
     // public function namespaced within THAT struct.
+    // const print = std.debug.print();
     //
     // Let's assign the std.debug.print function to a const named
     // "print" so that we can use this new name later!
 
-    const print = ???;
+    const print = std.debug.print;
 
     // Now let's look at assigning and pointing to values in Zig.
     //
@@ -107,7 +115,6 @@ pub fn main() void {
     glorp_access1.gold = 111;
     print("1:{}!. ", .{glorp.gold == glorp_access1.gold});
 
-    // NOTE:
     //
     //     If we tried to do this with a const Character instead of a
     //     var, changing the gold field would give us a compiler error
@@ -133,7 +140,6 @@ pub fn main() void {
     glorp_access3.gold = 333;
     print("3:{}!. ", .{glorp.gold == glorp_access3.gold});
 
-    // NOTE:
     //
     //     If we tried to do this with a *const Character pointer,
     //     that would NOT work and we would get a compiler error
@@ -163,15 +169,19 @@ pub fn main() void {
     print("XP before:{}, ", .{glorp.experience});
 
     // Fix 1 of 2 goes here:
-    levelUp(glorp, reward_xp);
+    levelUp(&glorp, reward_xp);
 
     print("after:{}.\n", .{glorp.experience});
 }
 
 // Fix 2 of 2 goes here:
-fn levelUp(character_access: Character, xp: u32) void {
+fn levelUp(character_access: *Character, xp: u32) void {
     character_access.experience += xp;
 }
+
+// NOTE: Data segments ≠ stack. The heap is much less efficient to manage
+// because there is no built-in CPU support for adding and removing
+// items as we have with the stack.
 
 // And there's more!
 //

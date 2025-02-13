@@ -1,19 +1,20 @@
-//
+// NOTE:
 // Zig has support for IEEE-754 floating-point numbers in these
 // specific sizes: f16, f32, f64, f80, and f128. Floating point
 // literals may be written in the same ways as integers but also
 // in scientific notation:
-//
+// /
 //     const a1: f32 = 1200;       //    1,200
 //     const a2: f32 = 1.2e+3;     //    1,200
 //     const b1: f32 = -500_000.0; // -500,000
 //     const b2: f32 = -5.0e+5;    // -500,000
-//
+// /
 // Hex floats can't use the letter 'e' because that's a hex
 // digit, so we use a 'p' instead:
 //
 //     const hex: f16 = 0x2A.F7p+3; // Wow, that's arcane!
 //
+// NOTE:
 // Be sure to use a float type that is large enough to store your
 // value (both in terms of significant digits and scale).
 // Rounding may or may not be okay, but numbers which are too
@@ -23,6 +24,7 @@
 //     const pi: f16 = 3.1415926535;   // rounds to 3.140625
 //     const av: f16 = 6.02214076e+23; // Avogadro's inf(inity)!
 //
+// NOTE:
 // When performing math operations with numeric literals, ensure
 // the types match. Zig does not perform unsafe type coercions
 // behind your back:
@@ -43,11 +45,13 @@ pub fn main() void {
     //
     // We'll convert this weight from pound to kilograms at a
     // conversion of 0.453592kg to the pound.
-    const shuttle_weight: f16 = 0.453592 * 4480e6;
+    const shuttle_weight: f64 = 0.453592 * 4.480e6;
 
+    // NOTE:
     // By default, float values are formatted in scientific
     // notation. Try experimenting with '{d}' and '{d:.3}' to see
     // how decimal formatting works.
+    // print("Shuttle liftoff weight: {d:.0}kg\n", .{shuttle_weight});
     print("Shuttle liftoff weight: {d:.0}kg\n", .{shuttle_weight});
 }
 
@@ -92,3 +96,5 @@ pub fn main() void {
 //
 // C compatibility fact: There is also a Zig floating point type
 // specifically for working with C ABIs called c_longdouble.
+
+// NOTE: Read 060 again

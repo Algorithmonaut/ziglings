@@ -1,6 +1,5 @@
-//
+// NOTE:
 // You can also make pointers to multiple items without using a slice.
-//
 //     var foo: [4]u8 = [4]u8{ 1, 2, 3, 4 };
 //     var foo_slice: []u8 = foo[0..];
 //     var foo_ptr: [*]u8 = &foo;
@@ -33,14 +32,16 @@ pub fn main() void {
     // we can CONVERT IT TO A SLICE. (Hint: we do know the length!)
     //
     // Please fix this line so the print statement below can print it:
-    const zen12_string: []const u8 = zen_manyptr;
+    const zen12_string: []const u8 = zen_manyptr[0..21];
 
     // Here's the moment of truth!
     std.debug.print("{s}\n", .{zen12_string});
 }
+
 //
 // Are all of these pointer types starting to get confusing?
 //
+// NOTE:
 //     FREE ZIG POINTER CHEATSHEET! (Using u8 as the example type.)
 //   +---------------+----------------------------------------------+
 //   |  u8           |  one u8                                      |

@@ -1,4 +1,4 @@
-//
+// NOTE:
 // Sometimes you know that a variable might hold a value or
 // it might not. Zig has a neat way of expressing this idea
 // called Optionals. An optional type just has a '?' like this:
@@ -12,16 +12,17 @@
 //
 //     if (foo == null) beginScreaming();
 //
+// NOTE:
 // Before we can use the optional value as the non-null type
 // (a u32 integer in this case), we need to guarantee that it
 // isn't null. One way to do this is to THREATEN IT with the
 // "orelse" statement.
-//
 //     var bar = foo orelse 2;
+//     var bar = foo orelse unreachable;
 //
 // Here, bar will either equal the u32 integer value stored in
 // foo, or it will equal 2 if foo was null.
-//
+
 const std = @import("std");
 
 pub fn main() void {
@@ -29,7 +30,7 @@ pub fn main() void {
 
     // Please threaten the result so that answer is either the
     // integer value from deepThought() OR the number 42:
-    const answer: u8 = result;
+    const answer: u8 = result orelse 42;
 
     std.debug.print("The Ultimate Answer: {}.\n", .{answer});
 }

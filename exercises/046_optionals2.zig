@@ -5,13 +5,12 @@
 // linked to the first elephant. This is because we had NO CONCEPT
 // of a tail that didn't point to another elephant!
 //
+// NOTE:
 // We also introduce the handy `.?` shortcut:
-//
 //     const foo = bar.?;
-//
 // is the same as
-//
 //     const foo = bar orelse unreachable;
+// HEHE I knew it
 //
 // Check out where we use this shortcut below to change control flow
 // based on if an optional value exists.
@@ -22,7 +21,7 @@ const std = @import("std");
 
 const Elephant = struct {
     letter: u8,
-    tail: *Elephant = null, // Hmm... tail needs something...
+    tail: ?*Elephant = null, // Hmm... tail needs something...
     visited: bool = false,
 };
 
@@ -66,6 +65,6 @@ fn visitElephants(first_elephant: *Elephant) void {
 
         // HINT: We want something similar to what `.?` does,
         // but instead of ending the program, we want to exit the loop...
-        e = e.tail ???
+        e = e.tail orelse break;
     }
 }

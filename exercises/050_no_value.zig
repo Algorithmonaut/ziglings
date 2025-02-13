@@ -6,7 +6,8 @@
 //     from The Call of Cthulhu
 //       by H. P. Lovecraft
 //
-// Zig has at least four ways of expressing "no value":
+// NOTE:
+// Zig has at least four ways of expressing "no value": undefined, null, error, void
 //
 // * undefined
 //
@@ -39,8 +40,8 @@
 //
 // * void
 //
+// NOTE:
 //       var foo: void = {};
-//
 //       "void" is a _type_, not a value. It is the most popular of the
 //       Zero Bit Types (those types which take up absolutely no space
 //       and have only a semantic value. When compiled to executable
@@ -65,10 +66,10 @@ const std = @import("std");
 const Err = error{Cthulhu};
 
 pub fn main() void {
-    var first_line1: *const [16]u8 = ???;
+    var first_line1: *const [16]u8 = undefined;
     first_line1 = "That is not dead";
 
-    var first_line2: Err!*const [21]u8 = ???;
+    var first_line2: Err!*const [21]u8 = Err.Cthulhu;
     first_line2 = "which can eternal lie";
 
     // Note we need the "{!s}" format for the error union string.
@@ -77,8 +78,8 @@ pub fn main() void {
     printSecondLine();
 }
 
-fn printSecondLine() ??? {
-    var second_line2: ?*const [18]u8 = ???;
+fn printSecondLine() void {
+    var second_line2: ?*const [18]u8 = null;
     second_line2 = "even death may die";
 
     std.debug.print("And with strange aeons {s}.\n", .{second_line2.?});

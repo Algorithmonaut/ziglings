@@ -1,13 +1,13 @@
-//
+// NOTE:
 // Remember using if/else statements as expressions like this?
-//
+// /
 //     var foo: u8 = if (true) 5 else 0;
-//
+// /
 // Zig also lets you use for and while loops as expressions.
-//
+// /
 // Like 'return' for functions, you can return a value from a
 // loop block with break:
-//
+// /
 //     break true; // return boolean value from block
 //
 // But what value is returned from a loop if a break statement is

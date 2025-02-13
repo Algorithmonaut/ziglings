@@ -33,6 +33,13 @@ pub fn main() void {
         .experience = 10,
     };
 
+    chars[1] = Character{
+        .role = Role.bard,
+        .gold = 10,
+        .health = 100,
+        .experience = 20,
+    };
+
     // Please add "Zump the Loud" with the following properties:
     //
     //     role       bard
@@ -51,6 +58,7 @@ pub fn main() void {
     }
 }
 
+// NOTE:
 // If you tried running the program without adding Zump as mentioned
 // above, you get what appear to be "garbage" values. In debug mode
 // (which is the default), Zig writes the repeating pattern "10101010"

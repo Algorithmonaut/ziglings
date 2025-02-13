@@ -18,21 +18,19 @@
 //
 //     Foo.hello();
 //
+// NOTE:
 // 3. The NEAT feature of these functions is that if their first argument
 //    is an instance of the struct (or a pointer to one) then we can use
 //    the instance as the namespace instead of the type:
-//
 //     const Bar = struct{
 //         pub fn a(self: Bar) void {}
 //         pub fn b(this: *Bar, other: u8) void {}
 //         pub fn c(bar: *const Bar) void {}
 //     };
-//
 //    var bar = Bar{};
 //    bar.a() // is equivalent to Bar.a(bar)
 //    bar.b(3) // is equivalent to Bar.b(&bar, 3)
 //    bar.c() // is equivalent to Bar.c(&bar)
-//
 //    Notice that the name of the parameter doesn't matter. Some use
 //    self, others use a lowercase version of the type name, but feel
 //    free to use whatever is most appropriate.
@@ -88,7 +86,7 @@ pub fn main() void {
         for (&aliens) |*alien| {
 
             // *** Zap the alien with the heat ray here! ***
-            ???.zap(???);
+            heat_ray.zap(&alien);
 
             // If the alien's health is still above 0, it's still alive.
             if (alien.health > 0) aliens_alive += 1;

@@ -20,9 +20,10 @@
 //     const baz = digits[5..9];  // 5 6 7 8
 //     const all = digits[0..];   // 0 1 2 3 4 5 6 7 8 9
 //
+// NOTE:
 // As you can see, a slice [x..y] starts with the index of the
 // first item at x and the last item at y-1. You can leave the y
-// off to get "the rest of the items".
+// off to get "the rest of the items" ([..5] does not work)
 //
 // The type of a slice on an array of u8 items is []u8.
 //
@@ -32,8 +33,8 @@ pub fn main() void {
     var cards = [8]u8{ 'A', '4', 'K', '8', '5', '2', 'Q', 'J' };
 
     // Please put the first 4 cards in hand1 and the rest in hand2.
-    const hand1: []u8 = cards[???];
-    const hand2: []u8 = cards[???];
+    const hand1: []u8 = cards[0..4];
+    const hand2: []u8 = cards[4..];
 
     std.debug.print("Hand1: ", .{});
     printHand(hand1);
@@ -43,7 +44,7 @@ pub fn main() void {
 }
 
 // Please lend this function a hand. A u8 slice hand, that is.
-fn printHand(hand: ???) void {
+fn printHand(hand: []u8) void {
     for (hand) |h| {
         std.debug.print("{u} ", .{h});
     }

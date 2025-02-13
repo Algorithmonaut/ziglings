@@ -1,9 +1,9 @@
-//
+// NOTE:
 // With tagged unions, it gets EVEN BETTER! If you don't have a
 // need for a separate enum, you can define an inferred enum with
 // your union all in one place. Just use the 'enum' keyword in
 // place of the tag type:
-//
+// /
 //     const Foo = union(enum) {
 //         small: u8,
 //         medium: u32,
@@ -15,7 +15,7 @@
 //
 const std = @import("std");
 
-const Insect = union(InsectStat) {
+const Insect = union(enum) {
     flowers_visited: u16,
     still_alive: bool,
 };
@@ -39,6 +39,7 @@ fn printInsect(insect: Insect) void {
     }
 }
 
+// NOTE:
 // Inferred enums are neat, representing the tip of the iceberg
 // in the relationship between enums and unions. You can actually
 // coerce a union TO an enum (which gives you the active field

@@ -9,9 +9,9 @@
 //
 //     var pv: *Vertex = &v1;   // <-- a pointer to our struct
 //
+// NOTE:
 // Note that you don't need to dereference the "pv" pointer to access
 // the struct's fields:
-//
 //     YES: pv.x
 //     NO:  pv.*.x
 //
@@ -68,7 +68,7 @@ pub fn main() void {
 
     // FIX ME!
     // Please pass Glorp to printCharacter():
-    printCharacter(???);
+    printCharacter(&glorp);
 }
 
 // Note how this function's "c" parameter is a pointer to a Character struct.

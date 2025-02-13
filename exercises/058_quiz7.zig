@@ -2,6 +2,7 @@
 // We've absorbed a lot of information about the variations of types
 // we can use in Zig. Roughly, in order we have:
 //
+// NOTE:
 //                          u8  single item
 //                         *u8  single-item pointer
 //                        []u8  slice (size known at runtime)
@@ -85,10 +86,12 @@ var f = Place{ .name = "Fox Pond" };
 //  |                ~~~~~                              |
 //  +---------------------------------------------------+
 //
+// NOTE:
 // We'll be reserving memory in our program based on the number of
 // places on the map. Note that we do not have to specify the type of
 // this value because we don't actually use it in our program once
 // it's compiled! (Don't worry if this doesn't make sense yet.)
+// const place_count = 6;
 const place_count = 6;
 
 // Now let's create all of the paths between sites. A path goes from
@@ -192,8 +195,8 @@ const TripItem = union(enum) {
             // Oops! The hermit forgot how to capture the union values
             // in a switch statement. Please capture each value as
             // 'p' so the print statements work!
-            .place => print("{s}", .{p.name}),
-            .path => print("--{}->", .{p.dist}),
+            .place => |p| print("{s}", .{p.name}),
+            .path => |p| print("--{}->", .{p.dist}),
         }
     }
 };
@@ -224,10 +227,12 @@ const NotebookEntry = struct {
 // +---+----------------+----------------+----------+
 //
 const HermitsNotebook = struct {
+    // NOTE:
     // Remember the array repetition operator `**`? It is no mere
     // novelty, it's also a great way to assign multiple items in an
     // array without having to list them one by one. Here we use it to
     // initialize an array with null values.
+    // entries: [place_count]?NotebookEntry = .{null} ** place_count,
     entries: [place_count]?NotebookEntry = .{null} ** place_count,
 
     // The next entry keeps track of where we are in our "todo" list.
@@ -255,8 +260,8 @@ const HermitsNotebook = struct {
             // dereference and optional value "unwrapping" look
             // together. Remember that you return the address with the
             // "&" operator.
-            if (place == entry.*.?.place) return entry;
             // Try to make your answer this long:__________;
+            if (place == entry.*.?.place) return &entry.*.?;
         }
         return null;
     }
@@ -301,6 +306,7 @@ const HermitsNotebook = struct {
     // the coming_from pointers back to the start. What we end up with
     // is an array of TripItems with our trip in reverse order.
     //
+    // NOTE:
     // We need to take the trip array as a parameter because we want
     // the main() function to "own" the array memory. What do you
     // suppose could happen if we allocated the array in this
@@ -309,7 +315,7 @@ const HermitsNotebook = struct {
     //
     // Looks like the hermit forgot something in the return value of
     // this function. What could that be?
-    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) void {
+    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) TripError!void {
         // We start at the destination entry.
         const destination_entry = self.getEntry(dest);
 
@@ -469,3 +475,5 @@ fn printTrip(trip: []?TripItem) void {
 // would keep the paths with the shortest distance at the front of the
 // queue). Dijkstra's algorithm is more efficient because longer paths
 // can be eliminated more quickly. (Work it out on paper to see why!)
+
+// NOTE: Please do 058 again later on
