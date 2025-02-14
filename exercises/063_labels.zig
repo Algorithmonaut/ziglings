@@ -1,37 +1,37 @@
-//
+// NOTE:
 // Loop bodies are blocks, which are also expressions. We've seen
 // how they can be used to evaluate and return values. To further
 // expand on this concept, it turns out we can also give names to
 // blocks by applying a 'label':
-//
+// /
 //     my_label: { ... }
-//
-// Once you give a block a label, you can use 'break' to exit
+// /
+// Once you give a block a label, you can use 'break' (or 'continue') to exit
 // from that block.
-//
+// /
 //     outer_block: {           // outer block
 //         while (true) {       // inner block
 //             break :outer_block;
 //         }
 //         unreachable;
 //     }
-//
+// /
 // As we've just learned, you can return a value using a break
 // statement. Does that mean you can return a value from any
 // labeled block? Yes it does!
-//
+// /
 //     const foo = make_five: {
 //         const five = 1 + 1 + 1 + 1 + 1;
 //         break :make_five five;
 //     };
-//
+// /
 // Labels can also be used with loops. Being able to break out of
 // nested loops at a specific level is one of those things that
 // you won't use every day, but when the time comes, it's
 // incredibly convenient. Being able to return a value from an
 // inner loop is sometimes so handy, it almost feels like cheating
 // (and can help you avoid creating a lot of temporary variables).
-//
+// /
 //     const bar: u8 = two_loop: while (true) {
 //         while (true) {
 //             break :two_loop 2;
@@ -128,8 +128,8 @@ pub fn main() void {
         // wanted for this Food.
         //
         // Please return this Food from the loop.
-        break;
-    };
+        break food;
+    } else menu[0];
     // ^ Oops! We forgot to return Mac & Cheese as the default
     // Food when the requested ingredients aren't found.
 

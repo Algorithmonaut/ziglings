@@ -8,13 +8,13 @@
 //        --o--            comptime        *    |      ..    .
 //     *    |       *  .        .    .   .    --*--  .     *  .
 //  .     .    .    .   . . .      .        .   |   .    .  .
-//
+// NOTE:
 // When placed before a variable declaration, 'comptime'
 // guarantees that every usage of that variable will be performed
 // at compile time.
-//
+// /
 // As a simple example, compare these two statements:
-//
+// /
 //    var bar1 = 5;            // ERROR!
 //    comptime var bar2 = 5;   // OKAY!
 //
@@ -35,7 +35,7 @@ pub fn main() void {
     // In this contrived example, we've decided to allocate some
     // arrays using a variable count! But something's missing...
     //
-    var count = 0;
+    comptime var count = 0;
 
     count += 1;
     const a1: [count]u8 = .{'A'} ** count;
@@ -52,7 +52,7 @@ pub fn main() void {
     print("{s} {s} {s} {s}\n", .{ a1, a2, a3, a4 });
 
     // Builtin BONUS!
-    //
+    // NOTE:
     // The @compileLog() builtin is like a print statement that
     // ONLY operates at compile time. The Zig compiler treats
     // @compileLog() calls as errors, so you'll want to use them
@@ -60,5 +60,5 @@ pub fn main() void {
     //
     // Try uncommenting this line and playing around with it
     // (copy it, move it) to see what it does:
-    //@compileLog("Count at compile time: ", count);
+    // @compileLog("Count at compile time: ", count);
 }

@@ -6,9 +6,11 @@
 // We've also seen @intCast() in "016_for2.zig", "058_quiz7.zig";
 // and @intFromEnum() in "036_enums2.zig".
 //
+// NOTE:
 // Builtins are special because they are intrinsic to the Zig
 // language itself (as opposed to being provided in the standard
-// library). They are also special because they can provide
+// library).
+// They are also special because they can provide
 // functionality that is only possible with help from the
 // compiler, such as type introspection (the ability to examine
 // type properties from within a program).
@@ -32,6 +34,8 @@ pub fn main() void {
     //     * The return value is a tuple with the result and a possible overflow bit.
     //
     // Let's try it with a tiny 4-bit integer size to make it clear:
+    // NOTE:
+    // const a: u4 = 0b1101;
     const a: u4 = 0b1101;
     const b: u4 = 0b0101;
     const my_result = @addWithOverflow(a, b);
@@ -63,13 +67,13 @@ pub fn main() void {
     //
     // If there was no overflow at all while adding 5 to a, what value would
     // 'my_result' hold? Write the answer in into 'expected_result'.
-    const expected_result: u8 = ???;
+    const expected_result: u8 = 0b0001_0010;
     print(". Without overflow: {b:0>8}. ", .{expected_result});
 
     print("Furthermore, ", .{});
 
     // Here's a fun one:
-    //
+    // NOTE:
     //   @bitReverse(integer: anytype) T
     //     * 'integer' is the value to reverse.
     //     * The return value will be the same type with the
@@ -78,6 +82,6 @@ pub fn main() void {
     // Now it's your turn. See if you can fix this attempt to use
     // this builtin to reverse the bits of a u8 integer.
     const input: u8 = 0b11110000;
-    const tupni: u8 = @bitReverse(input, tupni);
+    const tupni: u8 = @bitReverse(input);
     print("{b:0>8} backwards is {b:0>8}.\n", .{ input, tupni });
 }

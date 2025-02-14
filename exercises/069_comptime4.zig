@@ -1,7 +1,7 @@
-//
+// NOTE:
 // One of the more common uses of 'comptime' function parameters is
 // passing a type to a function:
-//
+// /
 //     fn foo(comptime MyType: type) void { ... }
 //
 // In fact, types are ONLY available at compile time, so the
@@ -23,6 +23,7 @@ pub fn main() void {
     print("s1={any}, s2={any}, s3={any}\n", .{ s1, s2, s3 });
 }
 
+//
 // This function is pretty wild because it executes at runtime
 // and is part of the final compiled program. The function is
 // compiled with unchanging data sizes and types.
@@ -30,6 +31,7 @@ pub fn main() void {
 // And yet it ALSO allows for different sizes and types. This
 // seems paradoxical. How could both things be true?
 //
+// NOTE:
 // To accomplish this, the Zig compiler actually generates a
 // separate copy of the function for every size/type combination!
 // So in this case, three different functions will be generated
@@ -42,8 +44,8 @@ pub fn main() void {
 //     2) Sets the size of the array of type T (which is the
 //        sequence we're creating and returning).
 //
-fn makeSequence(comptime T: type, ??? size: usize) [???]T {
-    var sequence: [???]T = undefined;
+fn makeSequence(comptime T: type, comptime size: usize) [size]T {
+    var sequence: [size]T = undefined;
     var i: usize = 0;
 
     while (i < size) : (i += 1) {
@@ -52,3 +54,15 @@ fn makeSequence(comptime T: type, ??? size: usize) [???]T {
 
     return sequence;
 }
+
+// NOTE:
+// fn makeSequence(comptime T: type, comptime size: usize) [size]T {
+//     var sequence: [size]T = undefined;
+//     var i: usize = 0;
+// /
+//     while (i < size) : (i += 1) {
+//         sequence[i] = @as(T, @intCast(i)) + 1;
+//     }
+// /
+//     return sequence;
+// }

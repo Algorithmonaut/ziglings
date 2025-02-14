@@ -1,9 +1,9 @@
-//
+// NOTE:
 // You can also put 'comptime' before a function parameter to
 // enforce that the argument passed to the function must be known
 // at compile time. We've actually been using a function like
 // this the entire time, std.debug.print():
-//
+// /
 //     fn print(comptime fmt: []const u8, args: anytype) void
 //
 // Notice that the format string parameter 'fmt' is marked as
@@ -43,7 +43,7 @@ const Schooner = struct {
         //
         // Please change this so that it sets a 0 scale to 1
         // instead.
-        if (my_scale == 0) @compileError("Scale 1:0 is not valid!");
+        if (my_scale == 0) my_scale = 1;
 
         self.scale = my_scale;
         self.hull_length /= my_scale;
@@ -69,7 +69,7 @@ pub fn main() void {
     // Hey, we can't just pass this runtime variable as an
     // argument to the scaleMe() method. What would let us do
     // that?
-    var scale: u32 = undefined;
+    comptime var scale: u32 = undefined;
 
     scale = 32; // 1:32 scale
 
@@ -106,3 +106,15 @@ pub fn main() void {
 //       planet.
 //
 // Answers can be found on the back of the Ziglings packaging.
+
+// NOTE:
+// fn scaleMe(self: *Schooner, comptime scale: u32) void {
+//     comptime var my_scale = scale;
+// /
+//     // We did something neat here: we've anticipated the
+//     // possibility of accidentally attempting to create a
+//     // scale of 1:0. Rather than having this result in a
+//     // divide-by-zero error at runtime, we've turned this
+//     // into a compile error.
+// /
+//     if (my_scale == 0) @compileError("Scale 1:0 is not valid!");

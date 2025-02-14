@@ -18,27 +18,26 @@
 // at compile time in order to analyze the code, maintain a table
 // of symbols (such as variable and function names), etc.
 //
+// NOTE:
 // Optimizing compilers can also figure out how much of a program
 // can be pre-computed or "inlined" at compile time to make the
 // resulting program more efficient. Smart compilers can even
 // "unroll" loops, turning their logic into a fast linear
 // sequence of statements (at the usually very slight expense of
 // the increased size of the repeated code).
-//
 // Zig takes these concepts further by making these optimizations
 // an integral part of the language itself!
 //
 const print = @import("std").debug.print;
 
 pub fn main() void {
+    // NOTE:
     // ALL numeric literals in Zig are of type comptime_int or
     // comptime_float. They are of arbitrary size (as big or
     // little as you need).
-    //
     // Notice how we don't have to specify a size like "u8",
     // "i32", or "f64" when we assign identifiers immutably with
     // "const".
-    //
     // When we use these identifiers in our program, the VALUES
     // are inserted at compile time into the executable code. The
     // IDENTIFIERS "const_int" and "const_float" don't exist in
@@ -62,8 +61,8 @@ pub fn main() void {
     // types with specific sizes. The comptime numbers will be
     // coerced (if they'll fit!) into your chosen runtime types.
     // For this it is necessary to specify a size, e.g. 32 bit.
-    var var_int = 12345;
-    var var_float = 987.654;
+    var var_int: u32 = 12345;
+    var var_float: f32 = 987.654;
 
     // We can change what is stored at the areas set aside for
     // "var_int" and "var_float" in the running compiled program.
